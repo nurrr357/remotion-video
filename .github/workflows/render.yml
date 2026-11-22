@@ -64,10 +64,10 @@ jobs:
             > out/metadata.json
 
       - name: Render video
-        run: npx remotion render Shorts out/shorts.mp4 --codec=h264 --concurrency=2 --props=props.json
+        run: npx remotion render CodeReels out/shorts.mp4 --codec=h264 --concurrency=2 --props=props.json
 
       - name: Render thumbnail
-        run: npx remotion still Shorts out/thumbnail.png --frame=30 --props=props.json
+        run: npx remotion still CodeReels out/thumbnail.png --frame=30 --props=props.json
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4

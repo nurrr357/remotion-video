@@ -1,0 +1,8 @@
+1
+00:00:00,100 --> 00:00:02,016
+Kasih satu ide.
+
+2
+00:00:01,966 --> 00:00:04,624
+AI nulis animasinya dalam kode.
+

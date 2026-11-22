@@ -1,0 +1,8 @@
+1
+00:00:00,100 --> 00:00:02,223
+Tiap frame dari kode.
+
+2
+00:00:02,173 --> 00:00:05,158
+Render sendiri, tanpa watermark.
+

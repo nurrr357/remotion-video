@@ -1,0 +1,8 @@
+1
+00:00:00,100 --> 00:00:02,126
+Gayanya bebas.
+
+2
+00:00:02,076 --> 00:00:06,590
+Kinetik, kolase, sketsa, sampai voxel.
+
