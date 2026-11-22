@@ -50,12 +50,18 @@ jobs:
           SUBTITLE: ${{ github.event.inputs.subtitle }}
           ACCENT: ${{ github.event.inputs.accent }}
         run: |
+          mkdir -p out
           jq -n \
             --arg title "$TITLE" \
             --arg subtitle "$SUBTITLE" \
             --arg accent "$ACCENT" \
             '{title: $title, subtitle: $subtitle, accent: $accent}' \
             > props.json
+          jq -n \
+            --arg title "$TITLE" \
+            --arg subtitle "$SUBTITLE" \
+            '{title: $title, description: ($subtitle + "\n\n#Shorts"), tags: ["shorts"]}' \
+            > out/metadata.json
 
       - name: Render video
         run: npx remotion render Shorts out/shorts.mp4 --codec=h264 --concurrency=2 --props=props.json
