@@ -16,7 +16,7 @@ const ACCENT = '#54A8FF';
 const GOLD = '#FFD166';
 const BG = '#05070d';
 
-const PARTICLE_COUNT = 460;
+const PARTICLE_COUNT = 320;
 const particlePositions = new Float32Array(PARTICLE_COUNT * 3);
 for (let i = 0; i < PARTICLE_COUNT; i++) {
   particlePositions[i * 3] = (random(`px-${i}`) - 0.5) * 14;
@@ -76,11 +76,11 @@ const ExplainerGraphic = () => {
       </mesh>
 
       <mesh rotation={[Math.PI / 2, 0, frame * 0.002]}>
-        <torusGeometry args={[2.1, 0.015, 12, 140]} />
+        <torusGeometry args={[2.1, 0.015, 10, 90]} />
         <meshBasicMaterial color={ACCENT} transparent opacity={0.4} />
       </mesh>
       <mesh rotation={[Math.PI / 2.6, frame * 0.003, 0.2]}>
-        <torusGeometry args={[2.55, 0.012, 12, 140]} />
+        <torusGeometry args={[2.55, 0.012, 10, 90]} />
         <meshBasicMaterial color={GOLD} transparent opacity={0.32} />
       </mesh>
 
@@ -133,7 +133,7 @@ const ThreeWorld = () => {
         <Particles />
         <ExplainerGraphic />
         <gridHelper
-          args={[16, 32, '#1b3152', '#0b1322']}
+          args={[16, 24, '#1b3152', '#0b1322']}
           position={[0, -1.8, -1]}
         />
       </ThreeCanvas>
