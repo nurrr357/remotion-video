@@ -203,6 +203,17 @@ Login terjadi di browser Anda sendiri. `client_secret.json` dan `token.json`
 tidak boleh di-commit dan sudah masuk `.gitignore`. Untuk upload publik, ganti
 `--privacy private` menjadi `--privacy public` setelah hasilnya dicek.
 
+Untuk automation dengan jadwal, gunakan `--publish-at` (UTC). Upload tetap
+private sampai YouTube mempublikasikannya:
+
+```powershell
+python scripts/upload_youtube.py --upload out/shorts.mp4 `
+  --title "Judul" --publish-at "2026-11-24T10:00:00Z"
+```
+
+Untuk mempertahankan private tanpa publish otomatis, cukup gunakan
+`--privacy private` dan jangan isi `--publish-at`.
+
 ## Catatan
 
 - Workflow ini hanya `workflow_dispatch`; tidak render setiap push, agar kuota

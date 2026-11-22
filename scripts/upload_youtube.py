@@ -17,6 +17,8 @@ Never commit either file.
 from __future__ import annotations
 
 import argparse
+import json
+import os
 import sys
 from pathlib import Path
 
@@ -47,7 +49,15 @@ def parse_args() -> argparse.Namespace:
         "--privacy",
         choices=["private", "unlisted", "public"],
         default="private",
-        help="Upload privacy status",
+        help="Upload privacy status; ignored when --publish-at is set",
+    )
+    parser.add_argument(
+        "--publish-at",
+        default="",
+        help=(
+            "ISO 8601 UTC timestamp, for example 2026-11-23T10:00:00Z. "
+            "Forces privacyStatus=private and lets YouTube publish automatically."
+        ),
     )
     parser.add_argument(
         "--made-for-kids",
@@ -71,15 +81,25 @@ def run_auth(args: argparse.Namespace) -> None:
 
 
 def load_credentials(args: argparse.Namespace) -> Credentials:
-    if not args.token.exists():
-        raise SystemExit(
-            f"Token not found: {args.token}\n"
-            "Run: python scripts/upload_youtube.py --auth"
-        )
-    creds = Credentials.from_authorized_user_file(str(args.token), SCOPES)
+    if args.token.exists():
+        creds = Credentials.from_authorized_user_file(str(args.token), SCOPES)
+    else:
+        raw = os.environ.get("YOUTUBE_TOKEN_JSON", "").strip()
+        if not raw:
+            raise SystemExit(
+                f"Token not found: {args.token}\n"
+                "Run: python scripts/upload_youtube.py --auth\n"
+                "Or set YOUTUBE_TOKEN_JSON for CI."
+            )
+        try:
+            creds = Credentials.from_authorized_user_info(json.loads(raw), SCOPES)
+        except (ValueError, TypeError) as exc:
+            raise SystemExit(f"YOUTUBE_TOKEN_JSON is not valid JSON: {exc}") from exc
+
     if creds.expired and creds.refresh_token:
         creds.refresh(Request())
-        args.token.write_text(creds.to_json(), encoding="utf-8")
+        if args.token.exists():
+            args.token.write_text(creds.to_json(), encoding="utf-8")
     if not creds.valid:
         raise SystemExit("OAuth token is invalid. Run --auth again.")
     return creds
@@ -111,6 +131,12 @@ def upload(args: argparse.Namespace) -> None:
             "selfDeclaredMadeForKids": args.made_for_kids,
         },
     }
+
+    if args.publish_at:
+        body["status"]["privacyStatus"] = "private"
+        body["status"]["publishAt"] = args.publish_at
+        print(f"Scheduled publish (UTC): {args.publish_at}")
+        print("Upload remains private until YouTube publishes it.")
 
     media = MediaFileUpload(
         str(args.upload),

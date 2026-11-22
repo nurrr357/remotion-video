@@ -91,6 +91,37 @@ ssh vps43 chmod 600 /srv/hermes/work/media/youtube-token.json
 Then run the same script on the VPS. Treat `token.json` like a password: anyone
 who has it can upload to the channel until you revoke access.
 
+## Automation
+
+The uploader defaults to `--privacy private`. To keep a video private forever,
+simply omit `--publish-at`:
+
+```powershell
+python scripts/upload_youtube.py --upload out/shorts.mp4 `
+  --title "Judul" --privacy private
+```
+
+To upload now but let YouTube publish it automatically later, use an ISO 8601
+UTC timestamp. This forces the initial status to private:
+
+```powershell
+python scripts/upload_youtube.py --upload out/shorts.mp4 `
+  --title "Judul" `
+  --publish-at "2026-11-24T10:00:00Z"
+```
+
+For CI, set the OAuth token JSON as the `YOUTUBE_TOKEN_JSON` secret instead of
+committing `token.json`. The uploader reads that environment variable when the
+token file is absent:
+
+```bash
+YOUTUBE_TOKEN_JSON='{"token": "...", ...}' \
+python scripts/upload_youtube.py --upload out/shorts.mp4 --title "Judul" --privacy private
+```
+
+Do not put the token in workflow YAML. Add it through GitHub **Settings →
+Secrets and variables → Actions**.
+
 ## Common errors
 
 - `access_denied`: your Google account was not added as a test user, or the
