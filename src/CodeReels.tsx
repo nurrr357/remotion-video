@@ -202,7 +202,7 @@ const CodeWindow = ({
         boxShadow: '0 28px 80px rgba(0,0,0,0.55)',
         overflow: 'hidden',
         transform: `translateY(${y}px)`,
-        opacity: enter,
+        opacity: 0.35 + enter * 0.65,
       }}
     >
       <div
@@ -440,7 +440,7 @@ const SceneOne = () => {
   const y = interpolate(enter, [0, 1], [90, 0]);
   return (
     <AbsoluteFill style={{padding: 78, justifyContent: 'center'}}>
-      <div style={{transform: `translateY(${y}px)`, opacity: enter}}>
+      <div style={{transform: `translateY(${y}px)`, opacity: 1}}>
         <div
           style={{
             color: ACCENT,
@@ -543,7 +543,7 @@ const SceneThree = () => {
   const title = spring({frame, fps, config: {damping: 20, stiffness: 90}});
   return (
     <AbsoluteFill style={{padding: 70, justifyContent: 'center'}}>
-      <div style={{opacity: title, transform: `translateY(${(1 - title) * 35}px)`}}>
+      <div style={{opacity: 0.35 + title * 0.65, transform: `translateY(${(1 - title) * 35}px)`}}>
         <div
           style={{
             color: ACCENT_2,
@@ -672,7 +672,7 @@ const SceneFive = () => {
   const blink = Math.floor(frame / 18) % 2 === 0;
   return (
     <AbsoluteFill style={{padding: 78, justifyContent: 'center'}}>
-      <div style={{transform: `scale(${0.96 + enter * 0.04})`, opacity: enter}}>
+      <div style={{transform: `scale(${0.96 + enter * 0.04})`, opacity: 0.35 + enter * 0.65}}>
         <div
           style={{
             color: ACCENT,
