@@ -1,11 +1,20 @@
 import {Composition} from 'remotion';
 import {CodeReels} from './CodeReels';
 import {Shorts} from './Shorts';
+import {ThreeReels} from './ThreeReels';
 import {ThreeTest} from './ThreeTest';
 
 export const RemotionRoot = () => {
   return (
     <>
+      <Composition
+        id="ThreeReels"
+        component={ThreeReels}
+        durationInFrames={30 * 30}
+        fps={30}
+        width={1080}
+        height={1920}
+      />
       <Composition
         id="ThreeTest"
         component={ThreeTest}

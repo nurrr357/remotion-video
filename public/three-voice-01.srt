@@ -1,0 +1,4 @@
+1
+00:00:00,100 --> 00:00:04,698
+Dunia tiga dimensi untuk partikel, grafik, dan kamera.
+
