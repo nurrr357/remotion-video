@@ -7,3 +7,4 @@ token.json
 .venv/
 .DS_Store
 *.log
+__pycache__/
