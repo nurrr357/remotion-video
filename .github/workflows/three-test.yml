@@ -1,0 +1,42 @@
+name: Three Test
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Ensure Remotion browser
+        run: npx remotion browser ensure
+
+      - name: Render Three.js test
+        run: npx remotion render ThreeTest out/three-test.mp4 --codec=h264 --gl=swangle --concurrency=2
+
+      - name: Render still
+        run: npx remotion still ThreeTest out/three-test.png --frame=60 --gl=swangle
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: three-test
+          path: out/
+          retention-days: 7
+          if-no-files-found: error
