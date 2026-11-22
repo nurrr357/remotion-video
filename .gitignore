@@ -1,6 +1,9 @@
 node_modules/
 out/
 props.json
+build/
+client_secret.json
+token.json
+.venv/
 .DS_Store
 *.log
-build/

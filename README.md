@@ -184,6 +184,25 @@ rm public/music.wav
 
 Audio dipasang di `src/Shorts.tsx` memakai `<Audio>` dari `@remotion/media`.
 
+## Upload ke YouTube
+
+Uploader OAuth ada di `scripts/upload_youtube.py`. Panduan lengkap ada di
+[`docs/youtube-oauth.md`](docs/youtube-oauth.md).
+
+Singkatnya, di Windows:
+
+```powershell
+py -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install -r requirements-upload.txt
+python scripts/upload_youtube.py --auth
+python scripts/upload_youtube.py --upload out/shorts.mp4 --title "Judul" --privacy private
+```
+
+Login terjadi di browser Anda sendiri. `client_secret.json` dan `token.json`
+tidak boleh di-commit dan sudah masuk `.gitignore`. Untuk upload publik, ganti
+`--privacy private` menjadi `--privacy public` setelah hasilnya dicek.
+
 ## Catatan
 
 - Workflow ini hanya `workflow_dispatch`; tidak render setiap push, agar kuota
