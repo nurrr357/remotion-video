@@ -1,0 +1,5 @@
+node_modules/
+out/
+props.json
+.DS_Store
+*.log

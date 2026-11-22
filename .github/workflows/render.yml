@@ -1,0 +1,72 @@
+name: Render Shorts
+
+"on":
+  workflow_dispatch:
+    inputs:
+      title:
+        description: "Judul utama video"
+        required: true
+        default: "Mulai dari satu ide"
+      subtitle:
+        description: "Subjudul / kalimat pembuka"
+        required: true
+        default: "Tiga detik pertama menentukan apakah orang berhenti scroll."
+      accent:
+        description: "Warna aksen, contoh #FFD166"
+        required: true
+        default: "#FFD166"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: remotion-shorts
+  cancel-in-progress: false
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Ensure Remotion browser
+        run: npx remotion browser ensure
+
+      - name: Build props
+        env:
+          TITLE: ${{ github.event.inputs.title }}
+          SUBTITLE: ${{ github.event.inputs.subtitle }}
+          ACCENT: ${{ github.event.inputs.accent }}
+        run: |
+          jq -n \
+            --arg title "$TITLE" \
+            --arg subtitle "$SUBTITLE" \
+            --arg accent "$ACCENT" \
+            '{title: $title, subtitle: $subtitle, accent: $accent}' \
+            > props.json
+
+      - name: Render video
+        run: npx remotion render Shorts out/shorts.mp4 --codec=h264 --concurrency=2 --props=props.json
+
+      - name: Render thumbnail
+        run: npx remotion still Shorts out/thumbnail.png --frame=30 --props=props.json
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: shorts-render
+          path: out/
+          retention-days: 7
+          if-no-files-found: error
