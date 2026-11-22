@@ -1,8 +1,10 @@
+import {Audio} from '@remotion/media';
 import {
   AbsoluteFill,
   interpolate,
   Sequence,
   spring,
+  staticFile,
   useCurrentFrame,
   useVideoConfig,
 } from 'remotion';
@@ -134,6 +136,18 @@ export const Shorts = ({title, subtitle, accent}: Props) => {
         fontFamily: 'Inter, Arial, sans-serif',
       }}
     >
+      <Audio src={staticFile('music.mp3')} volume={0.12} loop />
+
+      <Sequence from={0} durationInFrames={300}>
+        <Audio src={staticFile('voice-01.mp3')} />
+      </Sequence>
+      <Sequence from={300} durationInFrames={300}>
+        <Audio src={staticFile('voice-02.mp3')} />
+      </Sequence>
+      <Sequence from={600} durationInFrames={300}>
+        <Audio src={staticFile('voice-03.mp3')} />
+      </Sequence>
+
       <Background accent={accent} />
 
       <Sequence from={0} durationInFrames={300}>

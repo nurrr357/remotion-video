@@ -143,6 +143,47 @@ npx remotion still Shorts out/thumbnail.png --frame=30 --props=props.example.jso
 npx remotion add @remotion/media
 ```
 
+## Audio
+
+Versi ini sudah memiliki:
+
+- `public/voice-01.mp3` — narasi scene 1.
+- `public/voice-02.mp3` — narasi scene 2.
+- `public/voice-03.mp3` — narasi scene 3.
+- `public/music.mp3` — ambient bed 30 detik.
+- `public/voice-*.srt` — subtitle hasil Edge TTS.
+
+Voice dibuat dengan **Edge TTS** (`id-ID-ArdiNeural`), bukan ElevenLabs. Edge TTS
+gratis dan tidak memerlukan API key, tetapi bukan API resmi Microsoft: tidak ada
+SLA dan status komersialnya perlu dicek. Untuk produk komersial, gunakan Azure
+AI Speech atau Google Cloud TTS.
+
+Musik dibuat dengan `scripts/make_music.py`; ini synth sederhana, bukan track
+berlisensi pihak ketiga. Ganti `public/music.mp3` dengan track berlisensi jika
+ingin hasil yang lebih serius.
+
+Regenerate voice di Windows:
+
+```powershell
+py -m pip install edge-tts
+edge-tts --voice id-ID-ArdiNeural --rate=-5% `
+  --text "Mulai dari satu ide. Tiga detik pertama menentukan apakah orang berhenti scroll." `
+  --write-media public/voice-01.mp3 `
+  --write-subtitles public/voice-01.srt
+```
+
+Ulangi untuk `voice-02` dan `voice-03`.
+
+Regenerate musik:
+
+```bash
+python scripts/make_music.py
+ffmpeg -y -i public/music.wav -codec:a libmp3lame -b:a 128k public/music.mp3
+rm public/music.wav
+```
+
+Audio dipasang di `src/Shorts.tsx` memakai `<Audio>` dari `@remotion/media`.
+
 ## Catatan
 
 - Workflow ini hanya `workflow_dispatch`; tidak render setiap push, agar kuota

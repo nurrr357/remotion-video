@@ -1,0 +1,8 @@
+1
+00:00:00,100 --> 00:00:02,415
+Mulai dari satu ide.
+
+2
+00:00:02,365 --> 00:00:06,143
+Tiga detik pertama menentukan apakah orang berhenti scroll.
+
