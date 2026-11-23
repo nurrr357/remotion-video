@@ -1,0 +1,42 @@
+name: Musk Reels
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Ensure Remotion browser
+        run: npx remotion browser ensure
+
+      - name: Render Musk reels
+        run: npx remotion render MuskReels out/musk-reels.mp4 --codec=h264 --gl=swangle --concurrency=2
+
+      - name: Render still
+        run: npx remotion still MuskReels out/musk-reels.png --frame=60 --gl=swangle
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: musk-reels
+          path: out/
+          retention-days: 7
+          if-no-files-found: error
