@@ -185,7 +185,7 @@ const Heading = ({
         right: 72,
         fontFamily: 'Inter, Arial, sans-serif',
         transform: `translateY(${(1 - enter) * 35}px)`,
-        opacity: 0.45 + enter * 0.55,
+        opacity: 0.82 + enter * 0.18,
       }}
     >
       <div
@@ -288,8 +288,8 @@ const CompanyGrid = () => {
             </div>
             <span
               style={{
-                color: '#91A3B8',
-                fontSize: 18,
+                color: '#B3C3D4',
+                fontSize: 19,
                 letterSpacing: 2,
                 fontWeight: 700,
               }}
@@ -318,7 +318,7 @@ const ConnectionRail = () => {
         display: 'grid',
         gap: 18,
         fontFamily: 'Inter, Arial, sans-serif',
-        opacity: 0.4 + enter * 0.6,
+        opacity: 0.88 + enter * 0.12,
         transform: `translateY(${(1 - enter) * 30}px)`,
       }}
     >
@@ -346,8 +346,8 @@ const ConnectionRail = () => {
             </span>
             <span
               style={{
-                color: WHITE,
-                fontSize: 29,
+                color: '#F5FAFF',
+                fontSize: 30,
                 fontWeight: 800,
                 letterSpacing: 1,
               }}
@@ -472,7 +472,7 @@ const SceneOne = () => (
 
 const SceneTwo = () => (
   <>
-    <Heading kicker="YANG DI BELAKANGNYA" title="EKOSISTEMNYA." />
+    <Heading kicker="YANG ADA DI BALIKNYA" title="EKOSISTEMNYA." />
     <CompanyGrid />
   </>
 );
@@ -531,8 +531,8 @@ const SceneFour = () => {
         </div>
         <div
           style={{
-            color: MUTED,
-            fontSize: 31,
+            color: '#DCE7F4',
+            fontSize: 33,
             marginTop: 32,
           }}
         >
@@ -540,8 +540,8 @@ const SceneFour = () => {
         </div>
         <div
           style={{
-            color: '#75879D',
-            fontSize: 22,
+            color: '#9FB0C3',
+            fontSize: 23,
             letterSpacing: 2,
             marginTop: 54,
           }}
