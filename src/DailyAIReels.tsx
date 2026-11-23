@@ -180,7 +180,7 @@ const TopBar = ({index, accent}: {index: string; accent: string}) => (
   <div
     style={{
       position: 'absolute',
-      top: 72,
+      top: 148,
       left: 72,
       right: 72,
       display: 'flex',
@@ -209,7 +209,7 @@ const SceneVisual = ({theme, step}: {theme: DailyAIReelsProps['theme']; step: nu
         style={{
           position: 'absolute',
           left: 72,
-          bottom: 238,
+          bottom: 278,
           width: 650,
           maxWidth: '78%',
           padding: '20px 24px',
@@ -235,7 +235,7 @@ const SceneVisual = ({theme, step}: {theme: DailyAIReelsProps['theme']; step: nu
         style={{
           position: 'absolute',
           left: 72,
-          bottom: 238,
+          bottom: 278,
           display: 'flex',
           gap: 14,
           width: '72%',
@@ -268,7 +268,7 @@ const SceneVisual = ({theme, step}: {theme: DailyAIReelsProps['theme']; step: nu
       style={{
         position: 'absolute',
         left: 72,
-        bottom: 238,
+        bottom: 278,
         width: '72%',
         padding: '16px 20px',
         border: `1px solid ${accent}55`,
@@ -319,7 +319,7 @@ const Scene = ({
   const isHook = step === 0;
 
   return (
-    <AbsoluteFill style={{padding: '184px 72px 220px', fontFamily: FONT_FAMILY}}>
+    <AbsoluteFill style={{padding: '210px 72px 260px', fontFamily: FONT_FAMILY}}>
       <div
         style={{
           position: 'relative',
@@ -366,13 +366,13 @@ const Scene = ({
       </div>
       <SceneVisual theme={theme} step={step} />
       {step === 0 || step === 4 ? (
-        <Mascot2D right={20} bottom={210} scale={step === 4 ? 0.72 : 0.58} />
+        <Mascot2D right={20} bottom={260} scale={step === 4 ? 0.72 : 0.58} />
       ) : null}
       <div
         style={{
           position: 'absolute',
           left: 72,
-          bottom: 52,
+          bottom: 190,
           right: 72,
           height: 4,
           borderRadius: 99,
