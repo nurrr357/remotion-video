@@ -166,79 +166,6 @@ const Brand = () => (
   </div>
 );
 
-const TextBlock = ({
-  kicker,
-  title,
-  body,
-  align = 'left',
-}: {
-  kicker: string;
-  title: string;
-  body: string;
-  align?: 'left' | 'right';
-}) => {
-  const frame = useCurrentFrame();
-  const {fps} = useVideoConfig();
-  const enter = spring({frame, fps, config: {damping: 18, stiffness: 90}});
-  const y = interpolate(enter, [0, 1], [45, 0]);
-
-  return (
-    <AbsoluteFill
-      style={{
-        padding: 78,
-        justifyContent: 'flex-end',
-        paddingBottom: 190,
-        alignItems: align === 'right' ? 'flex-end' : 'flex-start',
-        textAlign: align,
-        fontFamily: 'Inter, Arial, sans-serif',
-        background:
-          'linear-gradient(to top, rgba(3,6,11,0.82) 0%, rgba(3,6,11,0.18) 50%, transparent 76%)',
-      }}
-    >
-      <div
-        style={{
-          transform: `translateY(${y}px)`,
-          opacity: 0.45 + enter * 0.55,
-          maxWidth: 820,
-        }}
-      >
-        <div
-          style={{
-            color: ACCENT,
-            fontSize: 27,
-            letterSpacing: 6,
-            fontWeight: 800,
-            marginBottom: 20,
-          }}
-        >
-          {kicker}
-        </div>
-        <div
-          style={{
-            color: WHITE,
-            fontSize: 88,
-            lineHeight: 0.96,
-            fontWeight: 900,
-            letterSpacing: -4,
-          }}
-        >
-          {title}
-        </div>
-        <div
-          style={{
-            color: MUTED,
-            fontSize: 34,
-            lineHeight: 1.25,
-            marginTop: 24,
-          }}
-        >
-          {body}
-        </div>
-      </div>
-    </AbsoluteFill>
-  );
-};
-
 const Heading = ({
   kicker,
   title,
@@ -474,14 +401,72 @@ const Monogram = () => {
   );
 };
 
+const HookScene = () => {
+  const frame = useCurrentFrame();
+  const {fps} = useVideoConfig();
+  const enter = spring({frame, fps, config: {damping: 17, stiffness: 95}});
+
+  return (
+    <AbsoluteFill
+      style={{
+        padding: 78,
+        justifyContent: 'center',
+        fontFamily: 'Inter, Arial, sans-serif',
+        background:
+          'linear-gradient(90deg, rgba(3,6,11,0.9) 0%, rgba(3,6,11,0.54) 52%, rgba(3,6,11,0.12) 100%)',
+      }}
+    >
+      <div
+        style={{
+          transform: `translateY(${(1 - enter) * 34}px)`,
+          opacity: 0.9 + enter * 0.1,
+          maxWidth: 900,
+        }}
+      >
+        <div
+          style={{
+            color: ACCENT,
+            fontSize: 27,
+            letterSpacing: 6,
+            fontWeight: 800,
+            marginBottom: 22,
+          }}
+        >
+          ELON MUSK / 001
+        </div>
+        <div
+          style={{
+            color: WHITE,
+            fontSize: 104,
+            lineHeight: 0.88,
+            fontWeight: 900,
+            letterSpacing: -5,
+          }}
+        >
+          BUKAN
+          <br />
+          <span style={{color: ACCENT}}>CUMA CEO.</span>
+        </div>
+        <div
+          style={{
+            color: '#D8E3F0',
+            fontSize: 34,
+            lineHeight: 1.3,
+            marginTop: 28,
+            maxWidth: 720,
+          }}
+        >
+          Dia membangun ekosistem, bukan cuma satu perusahaan.
+        </div>
+      </div>
+    </AbsoluteFill>
+  );
+};
+
 const SceneOne = () => (
   <>
     <Monogram />
-    <TextBlock
-      kicker="ELON MUSK / BUKAN CUMA CEO"
-      title="BUKAN CUMA CEO."
-      body="Dia membangun ekosistem, bukan satu perusahaan."
-    />
+    <HookScene />
   </>
 );
 
